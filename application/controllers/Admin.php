@@ -34,6 +34,9 @@ class Admin extends CI_Controller
         $data['judul'] = 'Halaman Dashboard Admin';
         $data['nasabah_bytgl'] = $this->NasabahModel->getTransaksiByTgl()->result_array();
         $data['nasabah_bytgl_numrows'] = $this->NasabahModel->getNasabahByTgl()->num_rows();
+        $data['jumlah_setoran'] = $this->NasabahModel->sumColumnByTgl('setoran')->jumlah_setoran;
+        $data['jumlah_tarikan'] = $this->NasabahModel->sumColumnByTgl('tarikan')->jumlah_tarikan;
+        $data['jumlah_pemindahan'] = $this->NasabahModel->sumColumnByTgl('pemindahan')->jumlah_pemindahan;
         $this->load->view('admin/template/header.php', $data);
         $this->load->view('admin/template/sidebar.php', $data);
         $this->load->view('admin/lihatnasabahtgl.php', $data);
@@ -41,7 +44,7 @@ class Admin extends CI_Controller
     }
     public function nasabah()
     {
-        $data['judul'] = 'Halaman Nasabah';
+        $data['judul'] = 'Data Nasabah';
         $data['nasabah'] = $this->NasabahModel->getNasabah();
         $this->form_validation->set_rules('nik_norek', 'nik/no.rek', 'trim|required|numeric');
         if ($this->form_validation->run() == FALSE) {
@@ -253,7 +256,7 @@ class Admin extends CI_Controller
     public function transaksi()
     {
         $data = [
-            'judul' => 'Halaman Transaksi',
+            'judul' => 'Data Transaksi',
             'transaksi' => $this->db->order_by('tanggal_transaksi', 'desc')->get('transaksi')->result_array()
         ];
         $this->load->view('admin/template/header.php', $data);

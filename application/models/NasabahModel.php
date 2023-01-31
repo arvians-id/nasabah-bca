@@ -42,16 +42,11 @@ class NasabahModel extends CI_Model
     }
     public function getIdNasabahTerbesar()
     {
-        // $query = $this->db->query("SELECT MAX(id_nasabah) as id from nasabah");
-        // $hasil = $query->row();
-        // return $hasil->id;
         $this->db->select_max('id_nasabah', 'id');
         return $this->db->get('nasabah')->row();
     }
     public function getTransaksiByTgl()
     {
-        // $this->db->like('tgl_masuk', $this->input->post('daritgl'));
-        // return $this->db->get('nasabah');
         $this->db->select('*');
         $this->db->from('transaksi t');
         $this->db->join('nasabah n', 't.nasabah_id = n.id_nasabah');
@@ -59,6 +54,15 @@ class NasabahModel extends CI_Model
         $this->db->where('DATE(t.tanggal_transaksi) <=', $this->input->post('sampaitgl'));
         $this->db->order_by('t.tanggal_transaksi', 'DESC');
         return $this->db->get();
+    }
+    public function sumColumnByTgl($perihal)
+    {
+        $this->db->select_sum('nominal', 'jumlah_' . $perihal);
+        $this->db->where('DATE(tanggal_transaksi) >=', $this->input->post('daritgl'));
+        $this->db->where('DATE(tanggal_transaksi) <=', $this->input->post('sampaitgl'));
+        $this->db->where('perihal', $perihal);
+
+        return $this->db->get('transaksi')->row();
     }
     public function getNasabahByTgl()
     {

@@ -7,13 +7,13 @@
                         <?= $judul; ?>
                     </div>
                     <div class="content">
-                        <div class="head mb-3">
+                        <div class="head">
                             <?php if ($this->session->flashdata('message')) : ?>
                                 <?= $this->session->flashdata('message'); ?>
                             <?php endif; ?>
                         </div>
                         <div class="canvas-wrapper table-responsive">
-                            <table class="table no-margin bg-lighter-grey" id="datatables">
+                            <table class="table table-bordered no-margin bg-lighter-grey" id="datatables">
                                 <thead class="success">
                                     <tr>
                                         <th>#</th>

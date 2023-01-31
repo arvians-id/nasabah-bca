@@ -21,7 +21,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="canvas-wrapper table-responsive">
-                            <table class="table no-margin bg-lighter-grey" id="datatables">
+                            <table class="table table-bordered no-margin bg-lighter-grey" id="datatables">
                                 <thead class="success">
                                     <tr>
                                         <th>#</th>

@@ -18,6 +18,7 @@
     <link href="<?= base_url() ?>assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/vendor/datatables/datatables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/css/master.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>assets/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="<?= base_url() ?>assets/img/favicon-96x96.png">

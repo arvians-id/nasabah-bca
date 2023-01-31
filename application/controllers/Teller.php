@@ -41,7 +41,7 @@ class Teller extends CI_Controller
     }
     public function nasabah()
     {
-        $data['judul'] = 'Halaman Nasabah';
+        $data['judul'] = 'Data Nasabah';
         $data['nasabah'] = $this->NasabahModel->getNasabah();
         $this->form_validation->set_rules('nik_norek', 'nik/no.rek', 'trim|required|numeric');
         if ($this->form_validation->run() == FALSE) {
@@ -253,7 +253,7 @@ class Teller extends CI_Controller
     public function transaksi()
     {
         $data = [
-            'judul' => 'Halaman Transaksi',
+            'judul' => 'Data Transaksi',
             'transaksi' => $this->db->order_by('tanggal_transaksi', 'desc')->get('transaksi')->result_array()
         ];
         $this->load->view('teller/template/header.php', $data);
