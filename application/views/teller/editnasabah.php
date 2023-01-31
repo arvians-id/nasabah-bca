@@ -1,16 +1,16 @@
 <div class="content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 page-header">
-                <h2 class="page-title text-center"><?= $judul; ?></h2>
-            </div>
-        </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="my-auto">
+                            <?= $judul; ?>
+                        </div>
+                    </div>
                     <div class="content">
                         <div class="canvas-wrapper">
-                            <form action="<?= base_url('admin/ubahnasabah/' . $nasabah['id_nasabah']) ?>" method="post">
+                            <form action="<?= base_url('teller/ubahnasabah/' . $nasabah['id_nasabah']) ?>" method="post">
                                 <div class="form-group">
                                     <label for="id_nasabah">Id Nasabah</label>
                                     <input type="text" name="id_nasabah" class="form-control" value="<?= $nasabah['id_nasabah'] ?>" required readonly>
@@ -27,13 +27,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="jenis_kelamin">Jenis Kelamin</label>
-                                    <select name="jenis_kelamin" class="form-control" id="">
-                                        <option value="<?= $nasabah['jenis_kelamin'] ?>"><?= $nasabah['jenis_kelamin'] ?></option>
-                                        <?php if ($nasabah['jenis_kelamin'] == 'Laki-laki') : ?>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                        <?php else : ?>
-                                            <option value="Perempuan">Perempuan</option>
-                                        <?php endif; ?>
+                                    <select name="jenis_kelamin" class="form-control">
+                                        <option value="" selected disabled>Pilih</option>
+                                        <option value="Laki-laki" <?= $nasabah['jenis_kelamin'] == "Laki-laki" ? "selected" : "" ?>>Laki-laki</option>
+                                        <option value="Perempuan" <?= $nasabah['jenis_kelamin'] == "Perempuan" ? "selected" : "" ?>>Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -80,7 +77,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="text" name="product_offered1" id="product_offered6" value="<?= ($nasabah['product_offered'] == 'KKB' || 'Asuransi' || 'KSM' || 'Kredit' || 'Kartu Kredit') ? '' : $nasabah['product_offered'] ?>" placeholder="lain-lain...">
+                                            <input type="text" name="product_offered1" id="product_offered6" value="<?= in_array($nasabah['product_offered'], ['KKB', 'Asuransi', 'KSM', 'Kredit', 'Kartu Kredit']) ? '' : $nasabah['product_offered'] ?>" placeholder="lain-lain...">
                                         </div>
                                     </div>
                                 </fieldset>

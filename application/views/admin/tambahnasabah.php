@@ -1,16 +1,16 @@
 <div class="content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 page-header">
-                <h2 class="page-title text-center"><?= $judul; ?></h2>
-            </div>
-        </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="my-auto">
+                            <?= $judul; ?>
+                        </div>
+                    </div>
                     <div class="content">
                         <div class="canvas-wrapper">
-                            <form action="<?= base_url('admin/tambahnasabah/' . $nik_norek) ?>" method="post">
+                            <form method="post">
                                 <div class="form-group">
                                     <label for="id_nasabah">Id Nasabah</label>
                                     <input type="text" name="id_nasabah" class="form-control" value="<?= $idnasabah ?>" required readonly>
@@ -26,14 +26,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="jenis_kelamin">Jenis Kelamin</label>
-                                    <select name="jenis_kelamin" class="form-control" id="">
+                                    <select name="jenis_kelamin" class="form-control" required>
+                                        <option value="" selected disabled>Pilih</option>
                                         <option value="Laki-laki">Laki-laki</option>
                                         <option value="Perempuan">Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <textarea name="alamat" placeholder="Alamat" class="form-control"><?= set_value('alamat') ?></textarea>
+                                    <textarea name="alamat" placeholder="Alamat" class="form-control" required><?= set_value('alamat') ?></textarea>
                                     <?= form_error('alamat', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
                                 <div class="form-group">
@@ -79,7 +80,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                             </form>
                         </div>
                     </div>

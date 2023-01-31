@@ -58,49 +58,65 @@ class Admin extends CI_Controller
         $data['nik_norek'] = $_POST['nik_norek'];
         $nasabah = $this->NasabahModel->getNasabahByNIK_Norek($data['nik_norek']);
         if ($nasabah) {
-            $this->db->set('ket_transaksi', $nasabah['ket_transaksi'] + 1);
-            $this->db->where('nik_norek', $data['nik_norek']);
-            $this->db->update('nasabah');
-            redirect('admin/detailnasabah/' . $_POST['nik_norek']);
+            $this->session->set_userdata('nik_norek', $data['nik_norek']);
+            redirect('admin/create_transaksi');
         } else {
-            redirect('admin/tambahnasabah/' . $_POST['nik_norek']);
+            $this->session->set_userdata('nik_norek', $this->input->post('nik_norek'));
+            redirect('admin/create_transaksi');
         }
     }
-    public function tambahNasabah($nik_norek)
+    public function create_transaksi()
     {
-        $data['judul'] = 'Input Nasabah';
-        $data['nik_norek'] = $nik_norek;
-        $id_nasabah = $this->NasabahModel->getIdNasabahTerbesar();
-        $urutan = substr($id_nasabah->id, 4, 4);
-        $idbaru = $urutan + 1;
-        $huruf = "NSBH";
-        $data['idnasabah'] = $huruf . sprintf("%04s", $idbaru);
-        $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'trim|required');
-        $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
-        $this->form_validation->set_rules('no_telp', 'no telepon', 'trim|required|numeric');
+        $nik_norek = $this->session->userdata('nik_norek');
+        if ($nik_norek == null) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger">Mohon ikuti tahapan dari awal!</div>');
+            redirect('admin/nasabah');
+        }
 
-        if ($this->form_validation->run() == False) {
-            $this->load->view('admin/template/header.php', $data);
-            $this->load->view('admin/template/sidebar.php', $data);
-            $this->load->view('admin/tambahnasabah.php', $data);
-            $this->load->view('admin/template/footer.php');
-        } else {
-            if ($this->input->post('product_offered1') != null) {
+        $nasabah = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
+        if ($nasabah) {
+            $this->form_validation->set_rules('nik_norek', 'NIK/No Rekening', 'trim|required');
+            if ($this->form_validation->run() == False) {
                 $data = [
-                    'id_nasabah' => $this->input->post('id_nasabah'),
-                    'nik_norek' => $this->input->post('nik_norek'),
-                    'nama' => $this->input->post('nama'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'alamat' => $this->input->post('alamat'),
-                    'no_telp' => $this->input->post('no_telp'),
-                    'ket_transaksi' => 1,
-                    'product_offered' => $this->input->post('product_offered1')
+                    'nasabah' => $nasabah,
+                    'count_transaksi' => $this->NasabahModel->countTransaksi($nasabah['id_nasabah'])
                 ];
-                $this->NasabahModel->tambahNasabah($data);
-                $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil ditambah!</div>');
-                redirect('admin/nasabah');
+                $data['judul'] = 'Verifikasi Transaksi Nasabah';
+                $data['nasabah'] = $this->NasabahModel->getNasabahByNIK_Norek($nik_norek);
+                $this->load->view('admin/template/header.php', $data);
+                $this->load->view('admin/template/sidebar.php', $data);
+                $this->load->view('admin/detail_transaksi.php', $data);
+                $this->load->view('admin/template/footer.php');
             } else {
+                $this->session->unset_userdata('nik_norek');
+                $this->session->set_userdata('nik_norek', $nik_norek);
+                redirect('admin/final_transaksi');
+            }
+        } else {
+            $data['judul'] = 'Input Nasabah';
+            $data['nik_norek'] = $nik_norek;
+            $id_nasabah = $this->NasabahModel->getIdNasabahTerbesar();
+            $urutan = substr($id_nasabah->id, 4, 4);
+            $idbaru = $urutan + 1;
+            $huruf = "NSBH";
+            $data['idnasabah'] = $huruf . sprintf("%04s", $idbaru);
+            $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+            $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'trim|required');
+            $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+            $this->form_validation->set_rules('no_telp', 'no telepon', 'trim|required|numeric');
+
+            if ($this->form_validation->run() == False) {
+                $this->load->view('admin/template/header.php', $data);
+                $this->load->view('admin/template/sidebar.php', $data);
+                $this->load->view('admin/tambahnasabah.php', $data);
+                $this->load->view('admin/template/footer.php');
+            } else {
+                $productOffered = null;
+                if ($this->input->post('product_offered1') != null) {
+                    $productOffered = $this->input->post('product_offered1');
+                } else {
+                    $productOffered = $this->input->post('product_offered');
+                }
                 $data = [
                     'id_nasabah' => $this->input->post('id_nasabah'),
                     'nik_norek' => $this->input->post('nik_norek'),
@@ -108,19 +124,61 @@ class Admin extends CI_Controller
                     'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                     'alamat' => $this->input->post('alamat'),
                     'no_telp' => $this->input->post('no_telp'),
-                    'ket_transaksi' => 1,
-                    'product_offered' => $this->input->post('product_offered')
+                    'product_offered' => $productOffered
                 ];
+                $this->session->unset_userdata('nik_norek');
                 $this->NasabahModel->tambahNasabah($data);
                 $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil ditambah!</div>');
                 redirect('admin/nasabah');
             }
         }
     }
+    public function final_transaksi()
+    {
+        $nik_norek = $this->session->userdata('nik_norek');
+        if ($nik_norek == null) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger">Mohon ikuti tahapan dari awal!</div>');
+            redirect('');
+        }
+
+        $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
+        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
+        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama pemegang rekening', 'trim|required');
+
+        $data['nasabah'] = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
+        $data['judul'] = 'Final Transaksi Nasabah';
+        if ($this->form_validation->run() == False) {
+            $this->load->view('admin/template/header.php', $data);
+            $this->load->view('admin/template/sidebar.php', $data);
+            $this->load->view('admin/final_transaksi.php', $data);
+            $this->load->view('admin/template/footer.php');
+        } else {
+            $perihal = $this->input->post('perihal');
+            $no_rekening = $this->input->post('no_rekening');
+            $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
+            $perihal_lainnya = $this->input->post('perihal_lainnya');
+            $nominal = $this->input->post('nominal');
+
+            $data = [
+                'nasabah_id' => $data['nasabah']['id_nasabah'],
+                'perihal' => $perihal_lainnya == null ? $perihal : $perihal_lainnya,
+                'no_rekening' => $no_rekening,
+                'nama_pemegang_rekening' => $nama_pemegang_rekening,
+                'nominal' => $nominal,
+                'tanggal_transaksi' => date('Y-m-d H:i:s'),
+            ];
+
+            $this->session->unset_userdata('nik_norek');
+            $this->db->insert('transaksi', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Transaksi Berhasil!</div>');
+            redirect('admin/nasabah');
+        }
+    }
     public function detailnasabah($nik_norek)
     {
         $data['judul'] = 'Detail Nasabah';
         $data['nasabah'] = $this->NasabahModel->getNasabahByNIK_Norek($nik_norek);
+        $data['transaksi'] = $this->db->get_where('transaksi', ['nasabah_id' => $data['nasabah']['id_nasabah']])->result_array();
         $this->load->view('admin/template/header.php', $data);
         $this->load->view('admin/template/sidebar.php', $data);
         $this->load->view('admin/detailnasabah.php', $data);
@@ -130,7 +188,7 @@ class Admin extends CI_Controller
     {
         $data['judul'] = 'Ubah Nasabah';
         $data['nasabah'] = $this->NasabahModel->getNasabahByIdNasabah($id_nasabah);
-        $this->form_validation->set_rules('nik_norek', 'nik/norek', 'trim|required|numeric|is_unique[nasabah.nik_norek]');
+        $this->form_validation->set_rules('nik_norek', 'nik/norek', 'trim|required|numeric');
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
         $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'trim|required');
         $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
@@ -142,35 +200,48 @@ class Admin extends CI_Controller
             $this->load->view('admin/editnasabah.php', $data);
             $this->load->view('admin/template/footer.php');
         } else {
+            $this->db->trans_start();
+            // Ubah Nasabah
+            $productOffered = null;
             if ($this->input->post('product_offered1') != null) {
-                $nasabah = $this->NasabahModel->getNasabahByIdNasabah($id_nasabah);
-                $data = [
-                    'nik_norek' => $this->input->post('nik_norek'),
-                    'nama' => $this->input->post('nama'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'alamat' => $this->input->post('alamat'),
-                    'no_telp' => $this->input->post('no_telp'),
-                    'ket_transaksi' => $data['nasabah']['ket_transaksi'] + 1,
-                    'product_offered' => $this->input->post('product_offered1')
-                ];
-                $this->NasabahModel->ubahNasabah($data, $nasabah['id_nasabah']);
-                $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah!</div>');
-                redirect('admin/nasabah');
+                $productOffered = $this->input->post('product_offered1');
             } else {
-                $nasabah = $this->NasabahModel->getNasabahByIdNasabah($id_nasabah);
-                $data = [
-                    'nik_norek' => $this->input->post('nik_norek'),
-                    'nama' => $this->input->post('nama'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'alamat' => $this->input->post('alamat'),
-                    'no_telp' => $this->input->post('no_telp'),
-                    'ket_transaksi' => $data['nasabah']['ket_transaksi'] + 1,
-                    'product_offered' => $this->input->post('product_offered')
-                ];
-                $this->NasabahModel->ubahNasabah($data, $nasabah['id_nasabah']);
-                $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah!</div>');
+                $productOffered = $this->input->post('product_offered');
+            }
+
+            $nasabah = $this->NasabahModel->getNasabahByIdNasabah($id_nasabah);
+            $data = [
+                'nik_norek' => $this->input->post('nik_norek'),
+                'nama' => $this->input->post('nama'),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'alamat' => $this->input->post('alamat'),
+                'no_telp' => $this->input->post('no_telp'),
+                'product_offered' => $productOffered
+            ];
+            $this->NasabahModel->ubahNasabah($data, $nasabah['id_nasabah']);
+
+            // Transaksi
+            $data = [
+                'nasabah_id' => $id_nasabah,
+                'perihal' => "Pengubahan Data Nasabah",
+                'no_rekening' => null,
+                'nama_pemegang_rekening' => null,
+                'nominal' => null,
+                'tanggal_transaksi' => date('Y-m-d H:i:s'),
+            ];
+            $this->db->insert('transaksi', $data);
+
+            // Check If Transaction Complete
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal diubah!</div>');
                 redirect('admin/nasabah');
             }
+
+            $this->db->trans_commit();
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah!</div>');
+            redirect('admin/nasabah');
         }
     }
     public function hapusnasabah($id_nasabah)
@@ -195,5 +266,63 @@ class Admin extends CI_Controller
         $this->TransaksiModel->hapusTransaksi($id_transaksi);
         $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil dihapus!</div>');
         redirect('admin/transaksi');
+    }
+    public function ubahtransaksi($id_transaksi)
+    {
+        $data['judul'] = 'Ubah Transaksi';
+        $data['transaksi'] = $this->db->get_where('transaksi', ['id_transaksi' => $id_transaksi])->row_array();
+        $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
+        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
+        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama pemegang rekening', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('admin/template/header.php', $data);
+            $this->load->view('admin/template/sidebar.php', $data);
+            $this->load->view('admin/edittransaksi.php', $data);
+            $this->load->view('admin/template/footer.php');
+        } else {
+            $this->db->trans_start();
+            // Ubah Nasabah
+            $perihal = $this->input->post('perihal');
+            $no_rekening = $this->input->post('no_rekening');
+            $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
+            $perihal_lainnya = $this->input->post('perihal_lainnya');
+            $nominal = $this->input->post('nominal');
+
+            $nasabah = $this->db->get_where('nasabah', ['id_nasabah' => $data['transaksi']['nasabah_id']])->row_array();
+
+            $data = [
+                'nasabah_id' => $nasabah['id_nasabah'],
+                'perihal' => $perihal_lainnya == null ? $perihal : $perihal_lainnya,
+                'no_rekening' => $no_rekening,
+                'nama_pemegang_rekening' => $nama_pemegang_rekening,
+                'nominal' => $nominal,
+            ];
+            $this->db->where('id_transaksi', $id_transaksi);
+            $this->db->update('transaksi', $data);
+
+            // Transaksi
+            $data = [
+                'nasabah_id' => $nasabah['id_nasabah'],
+                'perihal' => "Pengubahan Data Transaksi",
+                'no_rekening' => null,
+                'nama_pemegang_rekening' => null,
+                'nominal' => null,
+                'tanggal_transaksi' => date('Y-m-d H:i:s'),
+            ];
+            $this->db->insert('transaksi', $data);
+
+            // Check If Transaction Complete
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal diubah!</div>');
+                redirect('admin/transaksi');
+            }
+
+            $this->db->trans_commit();
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah!</div>');
+            redirect('admin/transaksi');
+        }
     }
 }

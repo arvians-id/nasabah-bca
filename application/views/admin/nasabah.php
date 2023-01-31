@@ -20,7 +20,7 @@
                                 <?= $this->session->flashdata('message'); ?>
                             <?php endif; ?>
                         </div>
-                        <div class="canvas-wrapper">
+                        <div class="canvas-wrapper table-responsive">
                             <table class="table no-margin bg-lighter-grey" id="datatables">
                                 <thead class="success">
                                     <tr>
@@ -31,7 +31,6 @@
                                         <th>Jenis Kelamin</th>
                                         <th>Transaksi</th>
                                         <th>Tanggal Masuk</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,17 +38,19 @@
                                     foreach ($nasabah as $n) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= $n['id_nasabah'] ?></td>
+                                            <td>
+                                                <?= $n['id_nasabah'] ?>
+                                                <br>
+                                                <a href="<?= base_url('admin/detailnasabah/' . $n['nik_norek']) ?>" class="text-primary">Detail</a> |
+                                                <a href="<?= base_url('admin/ubahnasabah/' . $n['id_nasabah']) ?>" class="text-primary">Ubah</a>
+                                                |
+                                                <a href="<?= base_url('admin/hapusnasabah/' . $n['id_nasabah']) ?>" class="text-primary" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+                                            </td>
                                             <td><?= $n['nik_norek'] ?></td>
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
                                             <td><?= $n['jumlah_transaksi'] ?></td>
                                             <td><?= $n['tgl_masuk'] ?></td>
-                                            <td>
-                                                <a href="<?= base_url('admin/detailnasabah/' . $n['nik_norek']) ?>" class="badge badge-warning"><span class="fas fa-eye"></span></a>
-                                                <a href="<?= base_url('admin/ubahnasabah/' . $n['id_nasabah']) ?>" class="badge badge-primary"><span class="fas fa-pen"></span></a>
-                                                <a href="<?= base_url('admin/hapusnasabah/' . $n['id_nasabah']) ?>" onclick="return confirm('Apakah anda yakin?')" class="badge badge-danger"><span class="fas fa-trash"></span></a>
-                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

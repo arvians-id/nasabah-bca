@@ -1,20 +1,24 @@
 <div class="content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 page-header">
-                <h2 class="page-title text-center">Lihat Transaksi dan Nasabah Sesuai Tanggal <?= $this->input->post('daritgl') ?></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row mt-5">
+            <div class="col-md">
                 <div class="card">
-                    <div class="content">
-                        <div class="head">
-                            <h5 class="mb-0">Tanggal : <?= $this->input->post('daritgl') ?></h5>
-                            <a data-toggle="modal" data-target="#exampleModal" class="badge badge-primary text-white"><i class="fas fa-calendar"></i> Pilih Tanggal</a>
-                            <a href="<?= base_url('admin') ?>" class="badge badge-primary">Kembali</a>
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="my-auto">
+                                Data Transaksi
+                            </div>
+                            <div>
+                                <span class="btn btn-secondary font-weight-bold btn-disabled">
+                                    <?= $this->input->post('daritgl') . ' <i class="fa fa-minus"></i>
+ ' . $this->input->post('sampaitgl') ?>
+                                </span>
+                                <a data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-white"><i class="fas fa-calendar"></i> Pilih Tanggal Kembali</a>
+                            </div>
                         </div>
-                        <div class="canvas-wrapper">
+                    </div>
+                    <div class="content">
+                        <div class="canvas-wrapper table-responsive">
                             <table class="table no-margin bg-lighter-grey" id="datatables">
                                 <thead class="success">
                                     <tr>
@@ -23,13 +27,13 @@
                                         <th>NIK/No.Rek</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
-                                        <th>Tanggal Masuk</th>
-                                        <th>Transaksi</th>
+                                        <th>Nominal</th>
+                                        <th>Perihal</th>
+                                        <th>Tanggal Transaksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
-                                    $total = 0;
                                     foreach ($nasabah_bytgl as $n) : ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
@@ -37,22 +41,21 @@
                                             <td><?= $n['nik_norek'] ?></td>
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
-                                            <td><?= $n['tgl_masuk'] ?></td>
-                                            <td><?= $n['ket_transaksi'] ?></td>
+                                            <td class="text-center"><?= $n['nominal'] == null ? '-' : $n['nominal'] ?></td>
+                                            <td><?= $n['perihal'] ?></td>
+                                            <td><?= $n['tanggal_transaksi'] ?></td>
                                         </tr>
-                                    <?php $total += $n['ket_transaksi']++;
-                                    endforeach;
-                                    ?>
+                                    <?php endforeach ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>#</td>
-                                        <td colspan="5" class="text-right"><strong>Jumlah Transaksi</strong></td>
-                                        <td><?= $total ?></td>
+                                        <td></td>
+                                        <td colspan="6" class="text-right"><strong>Jumlah Transaksi</strong></td>
+                                        <td><?= count($nasabah_bytgl) ?></td>
                                     </tr>
                                     <tr>
-                                        <td>#</td>
-                                        <td colspan="5" class="text-right"><strong>Jumlah Nasabah</strong></td>
+                                        <td></td>
+                                        <td colspan="6" class="text-right"><strong>Jumlah Nasabah</strong></td>
                                         <td><?= $nasabah_bytgl_numrows; ?></td>
                                     </tr>
                                 </tfoot>
@@ -77,16 +80,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url() ?>admin/lihatnasabahtgl" method="post">
+            <form action="<?= base_url() ?>teller/lihatnasabahtgl" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="daritgl">Dari Tanggal</label>
                         <input type="date" name="daritgl" id="daritgl" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="sampaitgl">Sampai Tanggal</label>
+                        <input type="date" name="sampaitgl" id="sampaitgl" class="form-control" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="submit" class="btn btn-danger text-white">Tambah</button>
+                    <button type="submit" name="submit" class="btn btn-danger text-white">Cari</button>
                 </div>
             </form>
         </div>

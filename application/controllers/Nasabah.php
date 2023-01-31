@@ -81,7 +81,6 @@ class Nasabah extends CI_Controller
                     'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                     'alamat' => $this->input->post('alamat'),
                     'no_telp' => $this->input->post('no_telp'),
-                    'ket_transaksi' => 1,
                     'product_offered' => $productOffered
                 ];
                 $this->session->unset_userdata('nik_norek');
@@ -100,8 +99,8 @@ class Nasabah extends CI_Controller
         }
 
         $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
-        $this->form_validation->set_rules('no_rekening', 'jenis kelamin', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'alamat', 'trim|required');
+        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
+        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama pemegang rekening', 'trim|required');
 
         $data['nasabah'] = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
         if ($this->form_validation->run() == False) {

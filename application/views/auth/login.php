@@ -50,24 +50,20 @@
                                     </label> <input type="password" name="password" placeholder="Enter password" id="formlogin">
                                     <?= form_error('password', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
-                                <div class="row mb-3 px-3">
+                                <div class="row mb-1 px-3">
                                     <button type="submit" class="btn btn-blue text-center">Login</button>
                                 </div>
+                                <a href="<?= base_url() ?>nasabah/verifikasi">
+                                    Daftar Nasabah Baru Disini!
+                                    <i class="fa fa-long-arrow-right"></i>
+                                </a>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="bg-blue py-4">
-                    <div class="row px-3">
-                        <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; <?= date('Y') ?>. All rights reserved.</small>
-                    </div>
-                </div>
-                <div class="bg-white py-4">
-                    <div class="row px-3">
-                        <a href="<?= base_url() ?>nasabah/verifikasi" class="btn btn-white text-center">
-                            Daftar Nasabah Baru Disini!
-                            <i class="fa fa-long-arrow-right" style="margin-left: 170px;"></i>
-                        </a>
+                    <div class="row">
+                        <small class="mx-auto">Copyright &copy; <?= date('Y') ?>. All rights reserved.</small>
                     </div>
                 </div>
             </div>

@@ -32,8 +32,8 @@
                                             <td>
                                                 <?= $t['nasabah_id'] ?>
                                                 <br>
-                                                <a href="<?= base_url('admin/ubahtransaksi/' . $t['id_transaksi']) ?>" class="text-primary">Ubah</a> |
-                                                <a href="<?= base_url('admin/hapustransaksi/' . $t['id_transaksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="text-primary">Hapus</a>
+                                                <a href="<?= base_url('teller/ubahtransaksi/' . $t['id_transaksi']) ?>" class="text-primary">Ubah</a> |
+                                                <a href="<?= base_url('teller/hapustransaksi/' . $t['id_transaksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="text-primary">Hapus</a>
                                             </td>
                                             <td class="text-center"><?= $t['nominal'] == null ? '-' : $t['nominal'] ?></td>
                                             <td><?= $t['perihal'] ?></td>

@@ -56,6 +56,7 @@ class NasabahModel extends CI_Model
         $this->db->from('transaksi t');
         $this->db->join('nasabah n', 't.nasabah_id = n.id_nasabah');
         $this->db->where('DATE(t.tanggal_transaksi) >=', $this->input->post('daritgl'));
+        $this->db->where('DATE(t.tanggal_transaksi) <=', $this->input->post('sampaitgl'));
         $this->db->order_by('t.tanggal_transaksi', 'DESC');
         return $this->db->get();
     }
@@ -64,6 +65,7 @@ class NasabahModel extends CI_Model
         $this->db->select('nasabah_id, COUNT(nasabah_id) as jumlah');
         $this->db->from('transaksi');
         $this->db->where('DATE(tanggal_transaksi) >=', $this->input->post('daritgl'));
+        $this->db->where('DATE(tanggal_transaksi) <=', $this->input->post('sampaitgl'));
         $this->db->group_by('nasabah_id');
         return $this->db->get();
     }
@@ -80,9 +82,6 @@ class NasabahModel extends CI_Model
     }
     public function getTotalTransaksiHariini()
     {
-        // $this->db->select_sum('ket_transaksi', 'total');
-        // $this->db->like('tgl_masuk', date('Y-m-d'));
-        // return $this->db->get('nasabah')->row_array();
         $today = date("Y-m-d");
         $this->db->select('COUNT(*) as jumlah');
         $this->db->from('transaksi');

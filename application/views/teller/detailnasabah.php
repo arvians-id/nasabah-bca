@@ -1,22 +1,16 @@
 <div class="content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 page-header">
-                <h2 class="page-title text-center"><?= $judul; ?></h2>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+        <div class="row mt-5">
+            <div class="col-md">
                 <div class="card">
-                    <div class="content">
-                        <div class="head">
-                            <h5 class="text-center">Data Nasabah <?= $nasabah['nama'] ?></h5>
-                            <a href="<?= base_url('admin/nasabah') ?>">
-                                <h6 class="text-center text-primary">Kembali</h6>
-                            </a>
+                    <div class="card-header">
+                        <div class="my-auto">
+                            <?= $judul; ?>
                         </div>
+                    </div>
+                    <div class="content">
                         <div class="canvas-wrapper">
-                            <table class="table no-margin bg-lighter-grey">
+                            <table class="table no-margin table-bordered bg-lighter-grey">
                                 <tr>
                                     <td>NIK / No. Rekening</td>
                                     <td>: <?= $nasabah['nik_norek'] ?></td>
@@ -39,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td>Keterangan Transaksi</td>
-                                    <td>: <span class="badge badge-primary"><?= $nasabah['ket_transaksi'] ?></span></td>
+                                    <td>: <span class="badge badge-primary"><?= $nasabah['jumlah_transaksi'] ?></span></td>
                                 </tr>
                                 <tr>
                                     <td>Produk yang ditawarkan</td>
@@ -49,6 +43,50 @@
                                     <td>Tanggal Masuk</td>
                                     <td>: <?= $nasabah['tgl_masuk'] ?></td>
                                 </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Riwayat Transaksi Nasabah
+                    </div>
+                    <div class="content">
+                        <div class="head mb-3">
+                            <?php if ($this->session->flashdata('message')) : ?>
+                                <?= $this->session->flashdata('message'); ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="canvas-wrapper table-responsive">
+                            <table class="table no-margin bg-lighter-grey" id="datatables">
+                                <thead class="success">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ID Nasabah</th>
+                                        <th>Nominal</th>
+                                        <th>Perihal</th>
+                                        <th>No Rekening - Nama</th>
+                                        <th>Tanggal Transaksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1;
+                                    foreach ($transaksi as $t) : ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td>
+                                                <?= $t['nasabah_id'] ?>
+                                                <br>
+                                                <a href="<?= base_url('teller/ubahtransaksi/' . $t['id_transaksi']) ?>" class="text-primary">Ubah</a> |
+                                                <a href="<?= base_url('teller/hapustransaksi/' . $t['id_transaksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="text-primary">Hapus</a>
+                                            </td>
+                                            <td class="text-center"><?= $t['nominal'] == null ? '-' : $t['nominal'] ?></td>
+                                            <td><?= $t['perihal'] ?></td>
+                                            <td><?= $t['no_rekening'] . ' - ' . $t['nama_pemegang_rekening'] ?></td>
+                                            <td><?= $t['tanggal_transaksi'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
