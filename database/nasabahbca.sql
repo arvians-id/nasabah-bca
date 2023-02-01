@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 01, 2023 at 03:41 PM
+-- Generation Time: Feb 01, 2023 at 03:43 PM
 -- Server version: 8.0.30
 -- PHP Version: 7.4.19
 
@@ -38,15 +38,6 @@ CREATE TABLE `nasabah` (
   `tgl_masuk` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `nasabah`
---
-
-INSERT INTO `nasabah` (`id_nasabah`, `nik_norek`, `nama`, `jenis_kelamin`, `alamat`, `no_telp`, `product_offered`, `tgl_masuk`) VALUES
-('NSBH0002', '327203090902000004', 'Libero et esse nesc', 'Laki-laki', 'Dolor accusamus temp', '082299921720', 'Kredit', '2023-02-01 15:41:20'),
-('NSBH0001', '327203090902000006', 'Widdy', 'Laki-laki', 'Bhayangkara', '082299921720', NULL, '2023-02-01 15:25:15'),
-('NSBH0003', '327203090902000009', 'Autem in omnis ut pl', 'Laki-laki', 'Ad facilis hic nesci', '082299921720', 'Valas', '2023-02-01 15:36:17');
-
 -- --------------------------------------------------------
 
 --
@@ -63,27 +54,6 @@ CREATE TABLE `transaksi` (
   `product_offered` varchar(256) DEFAULT NULL,
   `tanggal_transaksi` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id_transaksi`, `nasabah_id`, `nominal`, `perihal`, `no_rekening`, `nama_pemegang_rekening`, `product_offered`, `tanggal_transaksi`) VALUES
-(1, 'NSBH0001', 15000, 'Setoran', '327203090902000004', 'Irfan', NULL, '2023-02-01 15:25:15'),
-(2, 'NSBH0001', 25000, 'Pemindahan', '327203090902000004', 'Irfan', NULL, '2023-02-01 15:25:36'),
-(3, 'NSBH0001', NULL, 'Kliring\r\n', NULL, NULL, NULL, '2023-02-01 15:25:53'),
-(4, 'NSBH0002', NULL, NULL, NULL, NULL, 'KKB', '2023-02-01 15:26:55'),
-(5, 'NSBH0002', 13000, 'Tarikan', '327203090902000009', 'Dolor Mit', 'Kredit', '2023-02-01 15:27:39'),
-(6, 'NSBH0002', 10000, 'Pemindahan', '327203090902000009', 'Ipsum Lorem', 'Kredit', '2023-02-01 15:28:09'),
-(7, 'NSBH0002', 14000, 'Setoran', '327203090902000009', 'Ipsum Lorem', 'Asuransi', '2023-02-01 15:28:32'),
-(8, 'NSBH0001', 50000, 'Pemindahan', '327203090902000004', 'Agung', NULL, '2023-02-01 15:30:37'),
-(9, 'NSBH0003', NULL, NULL, NULL, NULL, 'Valas', '2023-02-01 15:31:42'),
-(10, 'NSBH0003', 10000, 'Setoran', '327203090902000004', 'Dolor Mit', NULL, '2023-02-01 15:32:01'),
-(11, 'NSBH0003', 13000, 'Tarikan', '327203090902000004', 'Dolor Mit', 'Kartu Kredit', '2023-02-01 15:36:02'),
-(12, 'NSBH0003', 12000, 'Setoran', '327203090902000009', 'Ipsum Lorem', 'Valas', '2023-02-01 15:36:17'),
-(13, 'NSBH0001', 50000, 'Tarikan', NULL, NULL, NULL, '2023-02-01 15:37:02'),
-(14, 'NSBH0003', 35000, 'Pemindahan', '327203090902000004', 'Irfan', NULL, '2023-02-01 15:37:21'),
-(15, 'NSBH0002', NULL, 'Pengubahan Data Nasabah', NULL, NULL, 'Kredit', '2023-02-01 15:41:20');
 
 -- --------------------------------------------------------
 
@@ -106,7 +76,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_admin`, `username`, `role`, `password`, `nama`, `date_created`) VALUES
 (1, 'admin', 'admin', '$2a$12$dGyWROpeMlbPjXONmLvwdOHG5/v69t.uSheCMIunruG6aSUEo2ZR2', 'Irfan', '2023-01-30 04:44:57'),
-(2, 'teller', 'teller', '$2a$12$lQIWrsVqFjeVtH4oqCHLBusd2Q.6tC.bVnWlmqccLRixJkHjTUL1G', 'Widdy', '2023-01-30 04:51:16');
+(2, 'teller', 'teller', '$2a$12$lQIWrsVqFjeVtH4oqCHLBusd2Q.6tC.bVnWlmqccLRixJkHjTUL1G', 'Lorem', '2023-02-01 15:43:19');
 
 --
 -- Indexes for dumped tables
@@ -140,7 +110,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
