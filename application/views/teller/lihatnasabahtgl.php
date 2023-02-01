@@ -27,7 +27,8 @@
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Nominal</th>
-                                        <th>Perihal</th>
+                                        <th>Keterangan Transaksi</th>
+                                        <th>Produk yang Ditawarkan</th>
                                         <th>Tanggal Transaksi</th>
                                     </tr>
                                 </thead>
@@ -42,6 +43,7 @@
                                             <td><?= $n['jenis_kelamin'] ?></td>
                                             <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp ' . $n['nominal'] ?></td>
                                             <td><?= $n['perihal'] ?></td>
+                                            <td><?= $n['product_offered'] ?></td>
                                             <td><?= $n['tanggal_transaksi'] ?></td>
                                         </tr>
                                     <?php endforeach ?>

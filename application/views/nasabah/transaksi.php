@@ -38,7 +38,7 @@
                             <form method="post">
                                 <div class="row px-3 mb-3">
                                     <label class="mb-1 mt-3">
-                                        <h6 class="mb-0 text-sm">Perihal</h6>
+                                        <h6 class="mb-0 text-sm">Keterangan Transaksi</h6>
                                     </label>
                                     <select name="perihal" class="form-control" id="formlogin" required>
                                         <option value="" disabled selected>Pilih</option>
@@ -49,20 +49,6 @@
                                     </select>
                                 </div>
                                 <div id="nominal"></div>
-                                <div class="row px-3 mb-3">
-                                    <label class="mb-1 mt-3">
-                                        <h6 class="mb-0 text-sm">No Rekening</h6>
-                                    </label>
-                                    <input type="text" name="no_rekening" placeholder="Enter a account number" id="formlogin" required>
-                                    <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
-                                </div>
-                                <div class="row px-3 mb-3">
-                                    <label class="mb-1 mt-3">
-                                        <h6 class="mb-0 text-sm">Pemegang Atas Nama Rekening</h6>
-                                    </label>
-                                    <input type="text" name="nama_pemegang_rekening" placeholder="Enter a name" id="formlogin" required>
-                                    <?= form_error('nama_pemegang_rekening', '<small class="text-danger ml-2">', '</small>') ?>
-                                </div>
                                 <div class="row mb-3 px-3">
                                     <button type="submit" class="btn btn-blue text-center">Simpan</button>
                                 </div>
@@ -87,9 +73,17 @@
                     $('#nominal').html(`
                                 <div class="row px-3 mb-3">
                                     <label class="mb-1 mt-3">
-                                        <h6 class="mb-0 text-sm">Perihal Lainnya</h6>
+                                        <h6 class="mb-0 text-sm">Keterangan Transaksi</h6>
                                     </label>
-                                    <input type="text" name="perihal_lainnya" placeholder="Enter a perihal" id="formlogin" required>
+                                    <textarea type="text" name="perihal_lainnya" id="formlogin" required></textarea>
+                                </div>`)
+                } else if ($(this).val() == 'Tarikan') {
+                    $('#nominal').html(`
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Nominal</h6>
+                                    </label>
+                                    <input type="number" name="nominal" placeholder="Enter a nominal" id="formlogin" required>
                                 </div>`)
                 } else {
                     $('#nominal').html(`
@@ -98,6 +92,18 @@
                                         <h6 class="mb-0 text-sm">Nominal</h6>
                                     </label>
                                     <input type="number" name="nominal" placeholder="Enter a nominal" id="formlogin" required>
+                                </div>
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">No Rekening</h6>
+                                    </label>
+                                    <input type="text" name="no_rekening" placeholder="Enter a account number" id="formlogin" required>
+                                </div>
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Nama Nasabah Penerima</h6>
+                                    </label>
+                                    <input type="text" name="nama_pemegang_rekening" placeholder="Enter a name" id="formlogin" required>
                                 </div>`)
                 }
             })

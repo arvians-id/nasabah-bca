@@ -64,10 +64,13 @@ class Nasabah extends CI_Controller
             $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'trim|required');
             $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
             $this->form_validation->set_rules('no_telp', 'no telepon', 'trim|required|numeric');
+            $this->form_validation->set_rules('perihal', 'Keterangan Transaksi', 'trim|required');
 
             if ($this->form_validation->run() == False) {
                 $this->load->view('nasabah/create', $data);
             } else {
+                $this->db->trans_start();
+                // Nasabah
                 $productOffered = null;
                 if ($this->input->post('product_offered1') != null) {
                     $productOffered = $this->input->post('product_offered1');
@@ -83,8 +86,36 @@ class Nasabah extends CI_Controller
                     'no_telp' => $this->input->post('no_telp'),
                     'product_offered' => $productOffered
                 ];
-                $this->session->unset_userdata('nik_norek');
                 $this->NasabahModel->tambahNasabah($data);
+
+                // Transaksi
+                $perihal = $this->input->post('perihal');
+                $no_rekening = $this->input->post('no_rekening');
+                $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
+                $perihal_lainnya = $this->input->post('perihal_lainnya');
+                $nominal = $this->input->post('nominal');
+
+                $data = [
+                    'nasabah_id' => $this->input->post('id_nasabah'),
+                    'perihal' => $perihal_lainnya == null ? $perihal : $perihal_lainnya,
+                    'no_rekening' => $no_rekening,
+                    'nama_pemegang_rekening' => $nama_pemegang_rekening,
+                    'nominal' => $nominal,
+                    'tanggal_transaksi' => date('Y-m-d H:i:s'),
+                ];
+
+                $this->db->insert('transaksi', $data);
+
+                // Check If Transaction Complete
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal ditambah!</div>');
+                    redirect('');
+                }
+
+                $this->db->trans_commit();
+                $this->session->unset_userdata('nik_norek');
                 $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil ditambah!</div>');
                 redirect('');
             }
@@ -98,9 +129,7 @@ class Nasabah extends CI_Controller
             redirect('');
         }
 
-        $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
-        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama pemegang rekening', 'trim|required');
+        $this->form_validation->set_rules('perihal', 'Keterangan Transaksi', 'trim|required');
 
         $data['nasabah'] = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
         if ($this->form_validation->run() == False) {

@@ -146,7 +146,7 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
         $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama pemegang rekening', 'trim|required');
+        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama nasabah penerima', 'trim|required');
 
         $data['nasabah'] = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
         $data['judul'] = 'Final Transaksi Nasabah';
@@ -274,9 +274,9 @@ class Admin extends CI_Controller
     {
         $data['judul'] = 'Ubah Transaksi';
         $data['transaksi'] = $this->db->get_where('transaksi', ['id_transaksi' => $id_transaksi])->row_array();
-        $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
+        $this->form_validation->set_rules('perihal', 'Keterangan Transaksi', 'trim|required');
         $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama pemegang rekening', 'trim|required');
+        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama nasabah penerima', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/template/header.php', $data);

@@ -19,8 +19,9 @@
                                         <th>#</th>
                                         <th>ID Nasabah</th>
                                         <th>Nominal</th>
-                                        <th>Perihal</th>
-                                        <th>No Rekening - Nama</th>
+                                        <th>Keterangan Transaksi</th>
+                                        <th>No Rekening Penerima</th>
+                                        <th>Nama Nasabah Penerima</th>
                                         <th>Tanggal Transaksi</th>
                                     </tr>
                                 </thead>
@@ -37,7 +38,8 @@
                                             </td>
                                             <td class="text-center"><?= $t['nominal'] == null ? '-' : $t['nominal'] ?></td>
                                             <td><?= $t['perihal'] ?></td>
-                                            <td><?= $t['no_rekening'] . ' - ' . $t['nama_pemegang_rekening'] ?></td>
+                                            <td><?= $t['no_rekening']  ?></td>
+                                            <td><?= $t['nama_pemegang_rekening'] ?></td>
                                             <td><?= $t['tanggal_transaksi'] ?></td>
                                         </tr>
                                     <?php endforeach; ?>

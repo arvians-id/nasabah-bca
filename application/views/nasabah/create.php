@@ -80,46 +80,21 @@
                                     <input type="text" name="no_telp" placeholder="Enter a phone number" id="formlogin" required>
                                     <?= form_error('no_telp', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
-                                <fieldset class="form-group row">
-                                    <legend class="col-form-label col-sm-4 float-sm-left pt-0">Produk yang ditawarkan</legend>
-                                    <div class="col-sm-8">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered1" value="KKB">
-                                            <label class="form-check-label" for="product_offered1">
-                                                KKB
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered2" value="Asuransi">
-                                            <label class="form-check-label" for="product_offered2">
-                                                Asuransi
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered3" value="KSM">
-                                            <label class="form-check-label" for="product_offered3">
-                                                KSM
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered4" value="Kredit">
-                                            <label class="form-check-label" for="product_offered4">
-                                                Kredit
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered5" value="Kartu Kredit">
-                                            <label class="form-check-label" for="product_offered5">
-                                                Kartu Kredit
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="text" name="product_offered1" id="formlogin" placeholder="lain-lain...">
-                                        </div>
-                                    </div>
-                                </fieldset>
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Keterangan Transaksi</h6>
+                                    </label>
+                                    <select name="perihal" class="form-control" id="formlogin" required>
+                                        <option value="" disabled selected>Pilih</option>
+                                        <option value="Setoran">Setoran</option>
+                                        <option value="Tarikan">Tarikan</option>
+                                        <option value="Pemindahan">Pemindahan</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                                </div>
+                                <div id="nominal"></div>
                                 <div class="row mb-3 px-3">
-                                    <button type="submit" class="btn btn-blue text-center">Selanjutnya</button>
+                                    <button type="submit" class="btn btn-blue text-center">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -135,6 +110,49 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('[name="perihal"]').on('change', function() {
+                if ($(this).val() == 'Lainnya') {
+                    $('#nominal').html(`
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Keterangan Transaksi</h6>
+                                    </label>
+                                    <textarea type="text" name="perihal_lainnya" id="formlogin" required></textarea>
+                                </div>`)
+                } else if ($(this).val() == 'Tarikan') {
+                    $('#nominal').html(`
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Nominal</h6>
+                                    </label>
+                                    <input type="number" name="nominal" placeholder="Enter a nominal" id="formlogin" required>
+                                </div>`)
+                } else {
+                    $('#nominal').html(`
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Nominal</h6>
+                                    </label>
+                                    <input type="number" name="nominal" placeholder="Enter a nominal" id="formlogin" required>
+                                </div>
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">No Rekening</h6>
+                                    </label>
+                                    <input type="text" name="no_rekening" placeholder="Enter a account number" id="formlogin" required>
+                                </div>
+                                <div class="row px-3 mb-3">
+                                    <label class="mb-1 mt-3">
+                                        <h6 class="mb-0 text-sm">Nama Nasabah Penerima</h6>
+                                    </label>
+                                    <input type="text" name="nama_pemegang_rekening" placeholder="Enter a name" id="formlogin" required>
+                                </div>`)
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

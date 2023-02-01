@@ -64,7 +64,7 @@
                                         <th>#</th>
                                         <th>ID Nasabah</th>
                                         <th>Nominal</th>
-                                        <th>Perihal</th>
+                                        <th>Keterangan Transaksi</th>
                                         <th>No Rekening - Nama</th>
                                         <th>Tanggal Transaksi</th>
                                     </tr>

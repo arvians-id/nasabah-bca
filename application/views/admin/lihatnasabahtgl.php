@@ -28,7 +28,8 @@
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Nominal</th>
-                                        <th>Perihal</th>
+                                        <th>Keterangan Transaksi</th>
+                                        <th>Produk yang Ditawarkan</th>
                                         <th>Tanggal Transaksi</th>
                                     </tr>
                                 </thead>
@@ -43,29 +44,30 @@
                                             <td><?= $n['jenis_kelamin'] ?></td>
                                             <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp ' . $n['nominal'] ?></td>
                                             <td><?= $n['perihal'] ?></td>
+                                            <td><?= $n['product_offered'] ?></td>
                                             <td><?= $n['tanggal_transaksi'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Transaksi</strong></td>
+                                        <td colspan="8" style="text-align: right;"><strong>Jumlah Transaksi</strong></td>
                                         <td><?= count($nasabah_bytgl) ?></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Nasabah</strong></td>
+                                        <td colspan="8" style="text-align: right;"><strong>Jumlah Nasabah</strong></td>
                                         <td><?= $nasabah_bytgl_numrows; ?></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Setoran</strong></td>
+                                        <td colspan="8" style="text-align: right;"><strong>Jumlah Setoran</strong></td>
                                         <td>Rp <?= $jumlah_setoran == null ? 0 : $jumlah_setoran; ?></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Tarikan</strong></td>
+                                        <td colspan="8" style="text-align: right;"><strong>Jumlah Tarikan</strong></td>
                                         <td>Rp <?= $jumlah_tarikan == null ? 0 : $jumlah_tarikan; ?></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Pemindahan</strong></td>
+                                        <td colspan="8" style="text-align: right;"><strong>Jumlah Pemindahan</strong></td>
                                         <td>Rp <?= $jumlah_pemindahan == null ? 0 : $jumlah_pemindahan; ?></td>
                                     </tr>
                                 </tfoot>

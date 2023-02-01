@@ -12,7 +12,7 @@
                         <div class="canvas-wrapper">
                             <form method="post">
                                 <div class="form-group">
-                                    <label for="perihal">Perihal</label>
+                                    <label for="perihal">Keterangan Transaksi</label>
                                     <select name="perihal" class="form-control" required>
                                         <option value="" disabled selected>Pilih</option>
                                         <option value="Setoran" <?= $transaksi['perihal'] == "Setoran" ? "selected" : "" ?>>Setoran</option>
@@ -28,8 +28,8 @@
                                     <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama_pemegang_rekening">Pemegang Atas Nama Rekening</label>
-                                    <input type="text" class="form-control" name="nama_pemegang_rekening" placeholder="Masukkan Pemegang Rekening" value="<?= $transaksi['nama_pemegang_rekening'] ?>" required>
+                                    <label for="nama_pemegang_rekening">Nama Nasabah Penerima</label>
+                                    <input type="text" class="form-control" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" value="<?= $transaksi['nama_pemegang_rekening'] ?>" required>
                                     <?= form_error('nama_pemegang_rekening', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Simpan</button>
@@ -47,8 +47,8 @@
         if ($('select[name="perihal"] option').filter(':selected').val() == 'Lainnya') {
             $('#nominal').html(`
                                 <div class="form-group">
-                                    <label for="nik_norek">Perihal Lainnya</label>
-                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Perihal Nasabah" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
+                                    <label for="nik_norek">Keterangan Transaksi</label>
+                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
                                 </div>
                                 `)
         } else {
@@ -63,8 +63,8 @@
             if ($(this).val() == 'Lainnya') {
                 $('#nominal').html(`
                                 <div class="form-group">
-                                    <label for="nik_norek">Perihal Lainnya</label>
-                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Perihal Nasabah" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
+                                    <label for="nik_norek">Keterangan Transaksi</label>
+                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
                                 </div>
                                 `)
             } else {

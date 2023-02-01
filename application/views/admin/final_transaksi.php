@@ -12,7 +12,7 @@
                         <div class="canvas-wrapper">
                             <form method="post">
                                 <div class="form-group">
-                                    <label for="perihal">Perihal</label>
+                                    <label for="perihal">Keterangan Transaksi</label>
                                     <select name="perihal" class="form-control" required>
                                         <option value="" disabled selected>Pilih</option>
                                         <option value="Setoran">Setoran</option>
@@ -28,10 +28,48 @@
                                     <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama_pemegang_rekening">Pemegang Atas Nama Rekening</label>
-                                    <input type="text" class="form-control" name="nama_pemegang_rekening" placeholder="Masukkan Pemegang Rekening" required>
+                                    <label for="nama_pemegang_rekening">Nama Nasabah Penerima</label>
+                                    <input type="text" class="form-control" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" required>
                                     <?= form_error('nama_pemegang_rekening', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
+                                <fieldset class="form-group row">
+                                    <legend class="col-form-label col-sm-3 float-sm-left pt-0">Produk yang ditawarkan</legend>
+                                    <div class="col-sm-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered1" value="KKB">
+                                            <label class="form-check-label" for="product_offered1">
+                                                KKB
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered2" value="Asuransi">
+                                            <label class="form-check-label" for="product_offered2">
+                                                Asuransi
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered3" value="KSM">
+                                            <label class="form-check-label" for="product_offered3">
+                                                KSM
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered4" value="Kredit">
+                                            <label class="form-check-label" for="product_offered4">
+                                                Kredit
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="product_offered" id="product_offered5" value="Kartu Kredit">
+                                            <label class="form-check-label" for="product_offered5">
+                                                Kartu Kredit
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="text" name="product_offered1" id="product_offered6" placeholder="lain-lain...">
+                                        </div>
+                                    </div>
+                                </fieldset>
                                 <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                             </form>
                         </div>
@@ -48,8 +86,8 @@
             if ($(this).val() == 'Lainnya') {
                 $('#nominal').html(`
                                 <div class="form-group">
-                                    <label for="nik_norek">Perihal Lainnya</label>
-                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Perihal Nasabah" class="form-control" required>
+                                    <label for="nik_norek">Keterangan Transaksi</label>
+                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" required>
                                 </div>
                                 `)
             } else {
