@@ -43,8 +43,8 @@
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
                                             <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp ' . $n['nominal'] ?></td>
-                                            <td><?= $n['perihal'] ?></td>
-                                            <td><?= $n['product_offered'] ?></td>
+                                            <td style="text-align: center;"><?= $n['perihal'] == null ? '-' : $n['perihal'] ?></td>
+                                            <td style="text-align: center;"><?= $n['produk'] == null ? '-' : $n['produk']  ?></td>
                                             <td><?= $n['tanggal_transaksi'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
@@ -111,7 +111,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     function printTable() {

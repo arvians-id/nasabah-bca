@@ -22,6 +22,7 @@
                                         <th>Keterangan Transaksi</th>
                                         <th>No Rekening Penerima</th>
                                         <th>Nama Nasabah Penerima</th>
+                                        <th>Produk yang Ditawarkan</th>
                                         <th>Tanggal Transaksi</th>
                                     </tr>
                                 </thead>
@@ -37,9 +38,10 @@
                                                 <a href="<?= base_url('teller/hapustransaksi/' . $t['id_transaksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="text-primary">Hapus</a>
                                             </td>
                                             <td class="text-center"><?= $t['nominal'] == null ? '-' : $t['nominal'] ?></td>
-                                            <td><?= $t['perihal'] ?></td>
-                                            <td><?= $t['no_rekening']  ?></td>
-                                            <td><?= $t['nama_pemegang_rekening'] ?></td>
+                                            <td class="text-center"><?= $t['perihal'] == null ? '-' : $t['perihal']  ?></td>
+                                            <td class="text-center"><?= $t['no_rekening'] == null ? '-' : $t['no_rekening']   ?></td>
+                                            <td class="text-center"><?= $t['nama_pemegang_rekening'] == null ? '-' : $t['nama_pemegang_rekening']  ?></td>
+                                            <td style="text-align: center;"><?= $t['product_offered'] == null ? '-' : $t['product_offered'] ?></td>
                                             <td><?= $t['tanggal_transaksi'] ?></td>
                                         </tr>
                                     <?php endforeach; ?>

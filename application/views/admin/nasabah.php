@@ -30,6 +30,7 @@
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Transaksi</th>
+                                        <th>Produk yang Ditawarkan</th>
                                         <th>Tanggal Masuk</th>
                                     </tr>
                                 </thead>
@@ -50,6 +51,7 @@
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
                                             <td><?= $n['jumlah_transaksi'] ?></td>
+                                            <td style="text-align: center;"><?= $n['product_offered'] == null ? '-' : $n['product_offered'] ?></td>
                                             <td><?= $n['tgl_masuk'] ?></td>
                                         </tr>
                                     <?php endforeach; ?>

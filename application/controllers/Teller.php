@@ -114,6 +114,9 @@ class Teller extends CI_Controller
                 $this->load->view('teller/tambahnasabah.php', $data);
                 $this->load->view('teller/template/footer.php');
             } else {
+                $this->db->trans_start();
+
+                // Nasabah
                 $productOffered = null;
                 if ($this->input->post('product_offered1') != null) {
                     $productOffered = $this->input->post('product_offered1');
@@ -129,8 +132,31 @@ class Teller extends CI_Controller
                     'no_telp' => $this->input->post('no_telp'),
                     'product_offered' => $productOffered
                 ];
-                $this->session->unset_userdata('nik_norek');
                 $this->NasabahModel->tambahNasabah($data);
+
+                // Transaksi
+                $data = [
+                    'nasabah_id' => $this->input->post('id_nasabah'),
+                    'perihal' => null,
+                    'no_rekening' => null,
+                    'nama_pemegang_rekening' => null,
+                    'nominal' => null,
+                    'product_offered' => $productOffered,
+                    'tanggal_transaksi' => date('Y-m-d H:i:s'),
+                ];
+
+                $this->db->insert('transaksi', $data);
+
+                // Check If Transaction Complete
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal diubah!</div>');
+                    redirect('teller/nasabah');
+                }
+
+                $this->db->trans_commit();
+                $this->session->unset_userdata('nik_norek');
                 $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil ditambah!</div>');
                 redirect('teller/nasabah');
             }
@@ -156,6 +182,15 @@ class Teller extends CI_Controller
             $this->load->view('teller/final_transaksi.php', $data);
             $this->load->view('teller/template/footer.php');
         } else {
+            $this->db->trans_start();
+
+            // Transaksi
+            $productOffered = null;
+            if ($this->input->post('product_offered1') != null) {
+                $productOffered = $this->input->post('product_offered1');
+            } else {
+                $productOffered = $this->input->post('product_offered');
+            }
             $perihal = $this->input->post('perihal');
             $no_rekening = $this->input->post('no_rekening');
             $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
@@ -168,11 +203,28 @@ class Teller extends CI_Controller
                 'no_rekening' => $no_rekening,
                 'nama_pemegang_rekening' => $nama_pemegang_rekening,
                 'nominal' => $nominal,
+                'product_offered' => $productOffered,
                 'tanggal_transaksi' => date('Y-m-d H:i:s'),
             ];
 
-            $this->session->unset_userdata('nik_norek');
             $this->db->insert('transaksi', $data);
+
+            // Update Product Offered
+            $this->db->set('product_offered', $productOffered);
+            $this->db->where('id_nasabah', $data['nasabah_id']);
+            $this->db->update('nasabah');
+
+            // Check If Transaction Complete
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal diubah!</div>');
+                redirect('teller/nasabah');
+            }
+
+            $this->db->trans_commit();
+
+            $this->session->unset_userdata('nik_norek');
             $this->session->set_flashdata('message', '<div class="alert alert-success">Transaksi Berhasil!</div>');
             redirect('teller/nasabah');
         }
@@ -230,6 +282,7 @@ class Teller extends CI_Controller
                 'no_rekening' => null,
                 'nama_pemegang_rekening' => null,
                 'nominal' => null,
+                'product_offered' => $productOffered,
                 'tanggal_transaksi' => date('Y-m-d H:i:s'),
             ];
             $this->db->insert('transaksi', $data);

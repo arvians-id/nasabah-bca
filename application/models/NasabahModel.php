@@ -47,7 +47,7 @@ class NasabahModel extends CI_Model
     }
     public function getTransaksiByTgl()
     {
-        $this->db->select('*');
+        $this->db->select('*, t.product_offered as produk');
         $this->db->from('transaksi t');
         $this->db->join('nasabah n', 't.nasabah_id = n.id_nasabah');
         $this->db->where('DATE(t.tanggal_transaksi) >=', $this->input->post('daritgl'));
