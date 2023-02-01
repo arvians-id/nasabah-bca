@@ -10,8 +10,7 @@
                             </div>
                             <div>
                                 <span class="btn btn-secondary font-weight-bold btn-disabled">
-                                    <?= $this->input->post('daritgl') . ' <i class="fa fa-minus"></i>
- ' . $this->input->post('sampaitgl') ?>
+                                    <?= $this->input->post('daritgl') . ' <i class="fa fa-minus"></i> ' . $this->input->post('sampaitgl') ?>
                                 </span>
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-white"><i class="fas fa-calendar"></i> Pilih Tanggal Kembali</a>
                             </div>
@@ -19,7 +18,7 @@
                     </div>
                     <div class="content">
                         <div class="canvas-wrapper table-responsive">
-                            <table class="table table-bordered no-margin bg-lighter-grey" id="datatables">
+                            <table class="table table-bordered no-margin bg-lighter-grey" border="1" id="datatables">
                                 <thead class="success">
                                     <tr>
                                         <th>#</th>
@@ -41,7 +40,7 @@
                                             <td><?= $n['nik_norek'] ?></td>
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
-                                            <td class="text-center"><?= $n['nominal'] == null ? '-' : $n['nominal'] ?></td>
+                                            <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp ' . $n['nominal'] ?></td>
                                             <td><?= $n['perihal'] ?></td>
                                             <td><?= $n['tanggal_transaksi'] ?></td>
                                         </tr>
@@ -49,14 +48,24 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td></td>
-                                        <td colspan="6" class="text-right"><strong>Jumlah Transaksi</strong></td>
+                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Transaksi</strong></td>
                                         <td><?= count($nasabah_bytgl) ?></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td colspan="6" class="text-right"><strong>Jumlah Nasabah</strong></td>
+                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Nasabah</strong></td>
                                         <td><?= $nasabah_bytgl_numrows; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Setoran</strong></td>
+                                        <td>Rp <?= $jumlah_setoran == null ? 0 : $jumlah_setoran; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Tarikan</strong></td>
+                                        <td>Rp <?= $jumlah_tarikan == null ? 0 : $jumlah_tarikan; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7" style="text-align: right;"><strong>Jumlah Pemindahan</strong></td>
+                                        <td>Rp <?= $jumlah_pemindahan == null ? 0 : $jumlah_pemindahan; ?></td>
                                     </tr>
                                 </tfoot>
                             </table>

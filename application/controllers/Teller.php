@@ -34,6 +34,9 @@ class Teller extends CI_Controller
         $data['judul'] = 'Halaman Dashboard Teller';
         $data['nasabah_bytgl'] = $this->NasabahModel->getTransaksiByTgl()->result_array();
         $data['nasabah_bytgl_numrows'] = $this->NasabahModel->getNasabahByTgl()->num_rows();
+        $data['jumlah_setoran'] = $this->NasabahModel->sumColumnByTgl('setoran')->jumlah_setoran;
+        $data['jumlah_tarikan'] = $this->NasabahModel->sumColumnByTgl('tarikan')->jumlah_tarikan;
+        $data['jumlah_pemindahan'] = $this->NasabahModel->sumColumnByTgl('pemindahan')->jumlah_pemindahan;
         $this->load->view('teller/template/header.php', $data);
         $this->load->view('teller/template/sidebar.php', $data);
         $this->load->view('teller/lihatnasabahtgl.php', $data);
