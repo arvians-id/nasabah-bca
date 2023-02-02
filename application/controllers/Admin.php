@@ -195,8 +195,7 @@ class Admin extends CI_Controller
             $no_rekening = $this->input->post('no_rekening');
             $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
             $perihal_lainnya = $this->input->post('perihal_lainnya');
-            $nominal = $this->input->post('nominal');
-
+            $nominal = str_replace(".", "", $this->input->post('nominal'));
             $data = [
                 'nasabah_id' => $data['nasabah']['id_nasabah'],
                 'perihal' => $perihal_lainnya == null ? $perihal : $perihal_lainnya,
@@ -255,7 +254,6 @@ class Admin extends CI_Controller
             $this->load->view('admin/editnasabah.php', $data);
             $this->load->view('admin/template/footer.php');
         } else {
-            $this->db->trans_start();
             // Ubah Nasabah
             $productOffered = null;
             if ($this->input->post('product_offered1') != null) {
@@ -274,28 +272,6 @@ class Admin extends CI_Controller
                 'product_offered' => $productOffered
             ];
             $this->NasabahModel->ubahNasabah($data, $nasabah['id_nasabah']);
-
-            // Transaksi
-            $data = [
-                'nasabah_id' => $id_nasabah,
-                'perihal' => "Pengubahan Data Nasabah",
-                'no_rekening' => null,
-                'nama_pemegang_rekening' => null,
-                'nominal' => null,
-                'product_offered' => $productOffered,
-                'tanggal_transaksi' => date('Y-m-d H:i:s'),
-            ];
-            $this->db->insert('transaksi', $data);
-
-            // Check If Transaction Complete
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
-                $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal diubah!</div>');
-                redirect('admin/nasabah');
-            }
-
-            $this->db->trans_commit();
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah!</div>');
             redirect('admin/nasabah');
         }
@@ -328,8 +304,6 @@ class Admin extends CI_Controller
         $data['judul'] = 'Ubah Transaksi';
         $data['transaksi'] = $this->db->get_where('transaksi', ['id_transaksi' => $id_transaksi])->row_array();
         $this->form_validation->set_rules('perihal', 'Keterangan Transaksi', 'trim|required');
-        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama nasabah penerima', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/template/header.php', $data);
@@ -337,16 +311,13 @@ class Admin extends CI_Controller
             $this->load->view('admin/edittransaksi.php', $data);
             $this->load->view('admin/template/footer.php');
         } else {
-            $this->db->trans_start();
-            // Ubah Nasabah
             $perihal = $this->input->post('perihal');
             $no_rekening = $this->input->post('no_rekening');
             $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
             $perihal_lainnya = $this->input->post('perihal_lainnya');
-            $nominal = $this->input->post('nominal');
+            $nominal = str_replace(".", "", $this->input->post('nominal'));
 
             $nasabah = $this->db->get_where('nasabah', ['id_nasabah' => $data['transaksi']['nasabah_id']])->row_array();
-
             $data = [
                 'nasabah_id' => $nasabah['id_nasabah'],
                 'perihal' => $perihal_lainnya == null ? $perihal : $perihal_lainnya,
@@ -357,26 +328,6 @@ class Admin extends CI_Controller
             $this->db->where('id_transaksi', $id_transaksi);
             $this->db->update('transaksi', $data);
 
-            // Transaksi
-            $data = [
-                'nasabah_id' => $nasabah['id_nasabah'],
-                'perihal' => "Pengubahan Data Transaksi",
-                'no_rekening' => null,
-                'nama_pemegang_rekening' => null,
-                'nominal' => null,
-                'tanggal_transaksi' => date('Y-m-d H:i:s'),
-            ];
-            $this->db->insert('transaksi', $data);
-
-            // Check If Transaction Complete
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
-                $this->session->set_flashdata('message', '<div class="alert alert-danger">Data gagal diubah!</div>');
-                redirect('admin/transaksi');
-            }
-
-            $this->db->trans_commit();
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah!</div>');
             redirect('admin/transaksi');
         }

@@ -23,8 +23,8 @@
                                 </div>
                                 <div id="nominal"></div>
                                 <div class="form-group">
-                                    <label for="no_rekening">Nik/No.Rekening</label>
-                                    <input type="text" name="no_rekening" placeholder="Masukkan Nik / No. Rekening" class="form-control">
+                                    <label for="no_rekening">No Rekening Penerima</label>
+                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control">
                                     <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
                                 <div class="form-group">
@@ -94,9 +94,14 @@
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" placeholder="Masukkan Nominal" class="form-control" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control" required>
                                 </div>
                                 `)
+
+                var input = document.getElementById("inputNumber");
+                input.addEventListener("change", function() {
+                    this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                });
             }
         })
     })

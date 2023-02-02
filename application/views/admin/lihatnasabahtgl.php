@@ -42,7 +42,7 @@
                                             <td><?= $n['nik_norek'] ?></td>
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
-                                            <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp ' . $n['nominal'] ?></td>
+                                            <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp.' . number_format($n['nominal'], 2, ',', '.') ?></td>
                                             <td style="text-align: center;"><?= $n['perihal'] == null ? '-' : $n['perihal'] ?></td>
                                             <td style="text-align: center;"><?= $n['produk'] == null ? '-' : $n['produk']  ?></td>
                                             <td><?= $n['tanggal_transaksi'] ?></td>
@@ -60,15 +60,15 @@
                                     </tr>
                                     <tr>
                                         <td colspan="8" style="text-align: right;"><strong>Jumlah Setoran</strong></td>
-                                        <td>Rp <?= $jumlah_setoran == null ? 0 : $jumlah_setoran; ?></td>
+                                        <td><?= $jumlah_setoran == null ? 'Rp.' . number_format(0, 2, ',', '.') : 'Rp.' . number_format($jumlah_setoran, 2, ',', '.'); ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="8" style="text-align: right;"><strong>Jumlah Tarikan</strong></td>
-                                        <td>Rp <?= $jumlah_tarikan == null ? 0 : $jumlah_tarikan; ?></td>
+                                        <td><?= $jumlah_tarikan == null ? 'Rp.' . number_format(0, 2, ',', '.') : 'Rp.' . number_format($jumlah_tarikan, 2, ',', '.'); ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="8" style="text-align: right;"><strong>Jumlah Pemindahan</strong></td>
-                                        <td>Rp <?= $jumlah_pemindahan == null ? 0 : $jumlah_pemindahan; ?></td>
+                                        <td><?= $jumlah_pemindahan == null ? 'Rp.' . number_format(0, 2, ',', '.') : 'Rp.' . number_format($jumlah_pemindahan, 2, ',', '.'); ?></td>
                                     </tr>
                                 </tfoot>
                             </table>

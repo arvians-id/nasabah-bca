@@ -93,7 +93,7 @@ class Nasabah extends CI_Controller
                 $no_rekening = $this->input->post('no_rekening');
                 $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
                 $perihal_lainnya = $this->input->post('perihal_lainnya');
-                $nominal = $this->input->post('nominal');
+                $nominal = str_replace(".", "", $this->input->post('nominal'));
 
                 $data = [
                     'nasabah_id' => $this->input->post('id_nasabah'),
@@ -139,7 +139,7 @@ class Nasabah extends CI_Controller
             $no_rekening = $this->input->post('no_rekening');
             $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
             $perihal_lainnya = $this->input->post('perihal_lainnya');
-            $nominal = $this->input->post('nominal');
+            $nominal = str_replace(".", "", $this->input->post('nominal'));
 
             $data = [
                 'nasabah_id' => $data['nasabah']['id_nasabah'],

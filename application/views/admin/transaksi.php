@@ -37,7 +37,7 @@
                                                 <a href="<?= base_url('admin/ubahtransaksi/' . $t['id_transaksi']) ?>" class="text-primary">Ubah</a> |
                                                 <a href="<?= base_url('admin/hapustransaksi/' . $t['id_transaksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="text-primary">Hapus</a>
                                             </td>
-                                            <td class="text-center"><?= $t['nominal'] == null ? '-' : $t['nominal'] ?></td>
+                                            <td class="text-center"><?= $t['nominal'] == null ? '-' : 'Rp.' . number_format($t['nominal'], 2, ',', '.') ?></td>
                                             <td class="text-center"><?= $t['perihal'] == null ? '-' : $t['perihal']  ?></td>
                                             <td class="text-center"><?= $t['no_rekening'] == null ? '-' : $t['no_rekening']   ?></td>
                                             <td class="text-center"><?= $t['nama_pemegang_rekening'] == null ? '-' : $t['nama_pemegang_rekening']  ?></td>

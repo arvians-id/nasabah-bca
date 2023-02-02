@@ -22,16 +22,6 @@
                                     </select>
                                 </div>
                                 <div id="nominal"></div>
-                                <div class="form-group">
-                                    <label for="no_rekening">Nik/No.Rekening</label>
-                                    <input type="text" name="no_rekening" placeholder="Masukkan Nik / No. Rekening" class="form-control" value="<?= $transaksi['no_rekening'] ?>">
-                                    <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nama_pemegang_rekening">Nama Nasabah Penerima</label>
-                                    <input type="text" class="form-control" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" value="<?= $transaksi['nama_pemegang_rekening'] ?>" required>
-                                    <?= form_error('nama_pemegang_rekening', '<small class="text-danger ml-2">', '</small>') ?>
-                                </div>
                                 <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                             </form>
                         </div>
@@ -49,31 +39,76 @@
                                 <div class="form-group">
                                     <label for="nik_norek">Keterangan Transaksi</label>
                                     <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
-                                </div>
-                                `)
+                                </div>`)
+        } else if ($('select[name="perihal"] option').filter(':selected').val() == 'Tarikan') {
+            $('#nominal').html(`
+                                <div class="form-group">
+                                    <label for="nik_norek">Nominal</label>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                </div>`)
+
+            var input = document.getElementById("inputNumber");
+            input.addEventListener("change", function() {
+                this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            });
         } else {
             $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
                                 </div>
-                                `)
+                                <div class="form-group">
+                                    <label for="nik_norek">No Rekening Penerima</label>
+                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control"  value="<?= $transaksi['no_rekening'] ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nik_norek">Nama Nasabah Penerima</label>
+                                    <input type="text" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" class="form-control"  value="<?= $transaksi['nama_pemegang_rekening'] ?>" required>
+                                </div>`)
+
+            var input = document.getElementById("inputNumber");
+            input.addEventListener("change", function() {
+                this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            });
         }
+
         $('[name="perihal"]').on('change', function() {
             if ($(this).val() == 'Lainnya') {
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Keterangan Transaksi</label>
                                     <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
-                                </div>
-                                `)
+                                </div>`)
+            } else if ($(this).val() == 'Tarikan') {
+                $('#nominal').html(`
+                                <div class="form-group">
+                                    <label for="nik_norek">Nominal</label>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                </div>`)
+
+                var input = document.getElementById("inputNumber");
+                input.addEventListener("change", function() {
+                    this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                });
             } else {
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
                                 </div>
-                                `)
+                                <div class="form-group">
+                                    <label for="nik_norek">No Rekening Penerima</label>
+                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control"  value="<?= $transaksi['no_rekening'] ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nik_norek">Nama Nasabah Penerima</label>
+                                    <input type="text" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" class="form-control"  value="<?= $transaksi['nama_pemegang_rekening'] ?>" required>
+                                </div>`)
+
+                var input = document.getElementById("inputNumber");
+                input.addEventListener("change", function() {
+                    this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                });
             }
         })
     })

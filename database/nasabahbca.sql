@@ -48,12 +48,12 @@ CREATE TABLE `transaksi` (
   `id_transaksi` int NOT NULL,
   `nasabah_id` varchar(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nominal` int DEFAULT NULL,
-  `perihal` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `perihal` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `no_rekening` varchar(50) DEFAULT NULL,
   `nama_pemegang_rekening` varchar(50) DEFAULT NULL,
   `product_offered` varchar(256) DEFAULT NULL,
   `tanggal_transaksi` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

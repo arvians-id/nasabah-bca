@@ -23,8 +23,8 @@
                                 </div>
                                 <div id="nominal"></div>
                                 <div class="form-group">
-                                    <label for="no_rekening">Nik/No.Rekening</label>
-                                    <input type="text" name="no_rekening" placeholder="Masukkan Nik / No. Rekening" class="form-control">
+                                    <label for="no_rekening">No Rekening Penerima</label>
+                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control">
                                     <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
                                 </div>
                                 <div class="form-group">

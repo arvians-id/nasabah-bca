@@ -42,7 +42,7 @@
                                             <td><?= $n['nik_norek'] ?></td>
                                             <td><?= $n['nama'] ?></td>
                                             <td><?= $n['jenis_kelamin'] ?></td>
-                                            <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp ' . $n['nominal'] ?></td>
+                                            <td style="text-align: center;"><?= $n['nominal'] == null ? '-' : 'Rp.' . number_format($n['nominal'], 2, ',', '.')  ?></td>
                                             <td style="text-align: center;"><?= $n['perihal'] == null ? '-' : $n['perihal'] ?></td>
                                             <td style="text-align: center;"><?= $n['produk'] == null ? '-' : $n['produk']  ?></td>
                                             <td><?= $n['tanggal_transaksi'] ?></td>

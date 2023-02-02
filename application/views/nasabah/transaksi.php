@@ -83,19 +83,24 @@
                                     <label class="mb-1 mt-3">
                                         <h6 class="mb-0 text-sm">Nominal</h6>
                                     </label>
-                                    <input type="number" name="nominal" placeholder="Enter a nominal" id="formlogin" required>
+                                    <input type="number" name="nominal" class="inputNumber" placeholder="Enter a nominal" id="formlogin" required>
                                 </div>`)
+
+                    var input = document.querySelector(".inputNumber");
+                    input.addEventListener("change", function() {
+                        this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    });
                 } else {
                     $('#nominal').html(`
                                 <div class="row px-3 mb-3">
                                     <label class="mb-1 mt-3">
                                         <h6 class="mb-0 text-sm">Nominal</h6>
                                     </label>
-                                    <input type="number" name="nominal" placeholder="Enter a nominal" id="formlogin" required>
+                                    <input type="number" name="nominal" class="inputNumber" placeholder="Enter a nominal" id="formlogin" required>
                                 </div>
                                 <div class="row px-3 mb-3">
                                     <label class="mb-1 mt-3">
-                                        <h6 class="mb-0 text-sm">No Rekening</h6>
+                                        <h6 class="mb-0 text-sm">No Rekening Penerima</h6>
                                     </label>
                                     <input type="text" name="no_rekening" placeholder="Enter a account number" id="formlogin" required>
                                 </div>
@@ -105,6 +110,11 @@
                                     </label>
                                     <input type="text" name="nama_pemegang_rekening" placeholder="Enter a name" id="formlogin" required>
                                 </div>`)
+
+                    var input = document.querySelector(".inputNumber");
+                    input.addEventListener("change", function() {
+                        this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    });
                 }
             })
         })

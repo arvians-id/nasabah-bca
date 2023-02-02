@@ -80,7 +80,7 @@
                                                 <a href="<?= base_url('teller/ubahtransaksi/' . $t['id_transaksi']) ?>" class="text-primary">Ubah</a> |
                                                 <a href="<?= base_url('teller/hapustransaksi/' . $t['id_transaksi']) ?>" onclick="return confirm('Apakah anda yakin?')" class="text-primary">Hapus</a>
                                             </td>
-                                            <td class="text-center"><?= $t['nominal'] == null ? '-' : $t['nominal'] ?></td>
+                                            <td class="text-center"><?= $t['nominal'] == null ? '-' : 'Rp.' . number_format($t['nominal'], 2, ',', '.')  ?></td>
                                             <td><?= $t['perihal'] ?></td>
                                             <td><?= $t['no_rekening'] . ' - ' . $t['nama_pemegang_rekening'] ?></td>
                                             <td><?= $t['tanggal_transaksi'] ?></td>
