@@ -140,7 +140,7 @@ class Teller extends CI_Controller
                     'perihal' => null,
                     'no_rekening' => null,
                     'nama_pemegang_rekening' => null,
-                    'nominal' => null,
+                    'nominal' => 0,
                     'product_offered' => $productOffered,
                     'tanggal_transaksi' => date('Y-m-d H:i:s'),
                 ];
@@ -171,8 +171,6 @@ class Teller extends CI_Controller
         }
 
         $this->form_validation->set_rules('perihal', 'Keterangan Transaksi', 'trim|required');
-        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama nasabah penerima', 'trim|required');
 
         $data['nasabah'] = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
         $data['judul'] = 'Final Transaksi Nasabah';
@@ -196,7 +194,6 @@ class Teller extends CI_Controller
             $nama_pemegang_rekening = $this->input->post('nama_pemegang_rekening');
             $perihal_lainnya = $this->input->post('perihal_lainnya');
             $nominal = str_replace(".", "", $this->input->post('nominal'));
-
             $data = [
                 'nasabah_id' => $data['nasabah']['id_nasabah'],
                 'perihal' => $perihal_lainnya == null ? $perihal : $perihal_lainnya,

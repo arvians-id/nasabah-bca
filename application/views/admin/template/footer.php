@@ -15,7 +15,7 @@
 <script>
     $(document).ready(function() {
         $('#datatables').DataTable({
-            dom: 'Bfrtip',
+            dom: 'lBfrtip',
             buttons: [
                 'excel', 'pdf', 'print'
             ]

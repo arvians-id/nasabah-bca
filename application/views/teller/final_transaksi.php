@@ -22,16 +22,6 @@
                                     </select>
                                 </div>
                                 <div id="nominal"></div>
-                                <div class="form-group">
-                                    <label for="no_rekening">No Rekening Penerima</label>
-                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control">
-                                    <?= form_error('no_rekening', '<small class="text-danger ml-2">', '</small>') ?>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nama_pemegang_rekening">Nama Nasabah Penerima</label>
-                                    <input type="text" class="form-control" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" required>
-                                    <?= form_error('nama_pemegang_rekening', '<small class="text-danger ml-2">', '</small>') ?>
-                                </div>
                                 <fieldset class="form-group row">
                                     <legend class="col-form-label col-sm-3 float-sm-left pt-0">Produk yang ditawarkan</legend>
                                     <div class="col-sm-9">
@@ -88,15 +78,37 @@
                                 <div class="form-group">
                                     <label for="nik_norek">Keterangan Transaksi</label>
                                     <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" required>
-                                </div>
-                                `)
+                                </div>`)
+            } else if ($(this).val() == 'Tarikan') {
+                $('#nominal').html(`
+                                <div class="form-group">
+                                    <label for="nik_norek">Nominal</label>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control" required>
+                                </div>`)
+
+                var input = document.getElementById("inputNumber");
+                input.addEventListener("change", function() {
+                    this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                });
             } else {
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" placeholder="Masukkan Nominal" class="form-control" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control" required>
                                 </div>
-                                `)
+                                <div class="form-group">
+                                    <label for="nik_norek">No Rekening Penerima</label>
+                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nik_norek">Nama Nasabah Penerima</label>
+                                    <input type="text" name="nama_pemegang_rekening" placeholder="Masukkan Nama Nasabah Penerima" class="form-control" required>
+                                </div>`)
+
+                var input = document.getElementById("inputNumber");
+                input.addEventListener("change", function() {
+                    this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                });
             }
         })
     })

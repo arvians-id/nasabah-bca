@@ -45,7 +45,7 @@
                                                 <a href="<?= base_url('admin/detailnasabah/' . $n['nik_norek']) ?>" class="text-primary">Detail</a> |
                                                 <a href="<?= base_url('admin/ubahnasabah/' . $n['id_nasabah']) ?>" class="text-primary">Ubah</a>
                                                 |
-                                                <a href="<?= base_url('admin/hapusnasabah/' . $n['id_nasabah']) ?>" class="text-primary" onclick="return confirm('Apakah anda yakin?')">Hapus</a>
+                                                <a href="<?= base_url('admin/hapusnasabah/' . $n['id_nasabah']) ?>" class="text-primary" onclick="return confirm('Jika anda menghapus nasabah ini, maka seluruh riwayat transaksinya akan terhapus. Apakah anda yakin?')">Hapus</a>
                                             </td>
                                             <td><?= $n['nik_norek'] ?></td>
                                             <td><?= $n['nama'] ?></td>

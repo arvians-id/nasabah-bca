@@ -140,7 +140,7 @@ class Admin extends CI_Controller
                     'perihal' => null,
                     'no_rekening' => null,
                     'nama_pemegang_rekening' => null,
-                    'nominal' => null,
+                    'nominal' => 0,
                     'product_offered' => $productOffered,
                     'tanggal_transaksi' => date('Y-m-d H:i:s'),
                 ];
@@ -170,9 +170,7 @@ class Admin extends CI_Controller
             redirect('');
         }
 
-        $this->form_validation->set_rules('perihal', 'perihal', 'trim|required');
-        $this->form_validation->set_rules('no_rekening', 'no rekening', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama_pemegang_rekening', 'nama nasabah penerima', 'trim|required');
+        $this->form_validation->set_rules('perihal', 'Keterangan Transaksi', 'trim|required');
 
         $data['nasabah'] = $this->db->get_where('nasabah', ['nik_norek' => $nik_norek])->row_array();
         $data['judul'] = 'Final Transaksi Nasabah';
