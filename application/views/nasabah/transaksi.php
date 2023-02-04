@@ -83,7 +83,7 @@
                                     <label class="mb-1 mt-3">
                                         <h6 class="mb-0 text-sm">Nominal</h6>
                                     </label>
-                                    <input type="number" name="nominal" class="inputNumber" placeholder="Enter a nominal" id="formlogin" required>
+                                    <input type="text" name="nominal" class="inputNumber" placeholder="Enter a nominal" id="formlogin" required>
                                 </div>`)
 
                     var input = document.querySelector(".inputNumber");
@@ -96,7 +96,7 @@
                                     <label class="mb-1 mt-3">
                                         <h6 class="mb-0 text-sm">Nominal</h6>
                                     </label>
-                                    <input type="number" name="nominal" class="inputNumber" placeholder="Enter a nominal" id="formlogin" required>
+                                    <input type="text" name="nominal" class="inputNumber" placeholder="Enter a nominal" id="formlogin" required>
                                 </div>
                                 <div class="row px-3 mb-3">
                                     <label class="mb-1 mt-3">

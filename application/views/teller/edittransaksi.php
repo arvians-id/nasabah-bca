@@ -77,7 +77,7 @@
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Keterangan Transaksi</label>
-                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" value="<?= $transaksi['perihal'] ?>" required>
+                                    <input type="text" name="perihal_lainnya" placeholder="Masukkan Keterangan Transaksi" class="form-control" value="${$(this).val() != 'Lainnya' ? '<?= $transaksi['perihal'] ?>' : ''}" required>
                                 </div>`)
             } else if ($(this).val() == 'Tarikan') {
                 $('#nominal').html(`
