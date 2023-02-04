@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 03, 2023 at 05:51 AM
+-- Generation Time: Feb 04, 2023 at 03:55 AM
 -- Server version: 8.0.30
 -- PHP Version: 7.4.19
 
@@ -47,7 +47,7 @@ CREATE TABLE `nasabah` (
 CREATE TABLE `transaksi` (
   `id_transaksi` int NOT NULL,
   `nasabah_id` varchar(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nominal` int DEFAULT NULL,
+  `nominal` bigint DEFAULT NULL,
   `perihal` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `no_rekening` varchar(50) DEFAULT NULL,
   `nama_pemegang_rekening` varchar(50) DEFAULT NULL,
