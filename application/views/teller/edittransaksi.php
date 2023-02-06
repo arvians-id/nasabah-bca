@@ -44,7 +44,7 @@
             $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control" value="<?= $transaksi['nominal'] == 0 ? '' : $transaksi['nominal'] ?>" required>
                                 </div>`)
 
             var input = document.getElementById("inputNumber");
@@ -55,7 +55,7 @@
             $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control" value="<?= $transaksi['nominal'] == 0 ? '' : $transaksi['nominal'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nik_norek">No Rekening Penerima</label>
@@ -83,7 +83,7 @@
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control" value="<?= $transaksi['nominal'] == 0 ? '' : $transaksi['nominal'] ?>" required>
                                 </div>`)
 
                 var input = document.getElementById("inputNumber");
@@ -94,11 +94,11 @@
                 $('#nominal').html(`
                                 <div class="form-group">
                                     <label for="nik_norek">Nominal</label>
-                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] ?>" required>
+                                    <input type="text" name="nominal" id="inputNumber" placeholder="Masukkan Nominal" class="form-control"  value="<?= $transaksi['nominal'] == 0 ? '' : $transaksi['nominal'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nik_norek">No Rekening Penerima</label>
-                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control"  value="<?= $transaksi['no_rekening'] ?>" required>
+                                    <input type="text" name="no_rekening" placeholder="Masukkan No Rekening Penerima" class="form-control" value="<?= $transaksi['no_rekening'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nik_norek">Nama Nasabah Penerima</label>
